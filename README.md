@@ -24,15 +24,16 @@ A modern, responsive administration panel built with HTML, CSS, and JavaScript. 
 ## Getting Started
 
 1. Clone the repository
-2. Open `admin.html` in your web browser
+2. Open `index.html` in your web browser
 3. No build process required - it's a static website
 
 ## Project Structure
 
 ```
 kira-administration/
-├── admin.html          # Main application file
-└── README.md          # Project documentation
+├── index.html          # Main application file
+├── README.md          # Project documentation
+└── favicon.svg        # Project icon 
 ```
 
 ## Features in Detail
@@ -77,7 +78,7 @@ Created by AKira
 
 ## License
 
-All rights reserved to Kira Group
+All rights reserved to Akira
 
 ## Contributing
 
