@@ -1,6 +1,8 @@
-# Administration Panel
-
-A modern, responsive administration panel built with HTML, CSS, and JavaScript. This panel provides a sleek interface for managing financial transactions and records.
+<div align="center">
+  <img src="favicon.svg" alt="Administration Panel Logo" width="100" height="100">
+  <h1>Administration Panel</h1>
+  <p>A modern, secure, and efficient administration system</p>
+</div>
 
 ## Features
 
