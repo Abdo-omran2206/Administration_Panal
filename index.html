@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="kira">
+  <title>Administration Panal</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a1a1a;
+      --secondary-color: #2d2d2d;
+      --accent-color: #4a90e2;
+      --success-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --text-color: #ffffff;
+      --input-bg: #333333;
+      --card-bg: #2d2d2d;
+      --hover-color: #3d3d3d;
+      --border-color: #404040;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--primary-color);
+      color: var(--text-color);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+    }
+
+    .header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .header h3 {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .form-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+      background: var(--hover-color);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-row .input-group {
+      flex: 1;
+    }
+
+    .rest-amount {
+      background: var(--success-color);
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .rest-amount.negative {
+      background: var(--danger-color);
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #357abd;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-danger {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c0392b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+    }
+
+    .search-input {
+      position: relative;
+    }
+
+    .search-input i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-color);
+      opacity: 0.5;
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: var(--primary-color);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background: var(--hover-color);
+    }
+
+    tr:hover {
+      background: var(--hover-color);
+    }
+
+    .action-btn {
+      padding: 0.5rem 0.8rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .action-btn i {
+      font-size: 1rem;
+    }
+
+    .edit-btn {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background: #357abd;
+    }
+
+    .delete-btn {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .error-container {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 10px;
+      margin-top: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .error-container h3 {
+      color: var(--danger-color);
+      margin-bottom: 1rem;
+    }
+
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: bounce 1s infinite;
+    }
+
+    .dot:nth-child(1) { background: var(--accent-color); animation-delay: 0s; }
+    .dot:nth-child(2) { background: var(--success-color); animation-delay: 0.2s; }
+    .dot:nth-child(3) { background: var(--danger-color); animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media print {
+      .no-print {
+        display: none;
+      }
+      table {
+        font-size: 12pt;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+      }
+      .input-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      th, td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Administration Panel</h2>
+      <h3>Created By Akira</h3>
+    </div>
+
+    <div class="no-print">
+      <div class="form-container">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Enter name">
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label for="num1">Total Amount</label>
+            <input type="number" id="num1" placeholder="Enter total amount" onkeyup="getrest()">
+          </div>
+          <div class="input-group">
+            <label for="num2">Paid Amount</label>
+            <input type="number" id="num2" placeholder="Enter paid amount" onkeyup="getrest()">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="rest-amount" id="re">
+            <i class="fas fa-calculator"></i>
+            <span>Remaining: 0</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="num3">Count</label>
+          <input type="number" id="num3" placeholder="Enter count">
+        </div>
+
+        <button class="btn btn-primary" id="btn">
+          <i class="fas fa-plus"></i>
+          Create Record
+        </button>
+      </div>
+
+      <div class="search-container">
+        <div class="input-group">
+          <div class="search-input">
+            <i class="fas fa-search"></i>
+            <input type="search" id="ser" placeholder="Search by name" onkeyup="sersh()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Name</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Remaining</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      <p>All rights reserved to AKira</p>
+    </div>
+  </div>
+
+  <div class="error-container" id="er">
+    <h3>Sorry, please try again later</h3>
+    <div class="loading-dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <script>
+    let ero = document.getElementById("er");
+    let body = document.getElementById("body");
+    let ndate = new Date().getFullYear()+'/' + (new Date().getMonth()+1) +'/'+ new Date().getDate();
+    let name = document.getElementById('name');
+    let num1 = document.getElementById('num1');
+    let num2 = document.getElementById('num2');
+    let num3 = document.getElementById('num3');
+    let rest = document.getElementById('re');
+    let btn = document.getElementById('btn');
+    let del = document.getElementById("del");
+    let mood = "cr";
+    let t;
+    let time;
+    let h;
+
+    function getrest() {
+      if(num1.value != '' || num2.value != ''){
+        let remaining = num1.value - num2.value;
+        rest.innerHTML = `<i class="fas fa-calculator"></i><span>Remaining: ${remaining}</span>`;
+        rest.className = remaining < 0 ? 'rest-amount negative' : 'rest-amount';
+      } else {
+        rest.innerHTML = `<i class="fas fa-calculator"></i><span>Remaining: 0</span>`;
+        rest.className = 'rest-amount';
+      }
+    }
+
+    let data;
+    if(localStorage.store != null){
+      data = JSON.parse(localStorage.store)
+    } else {
+      data = [];
+    }
+
+    btn.onclick = function(){
+      let hours = new Date().getHours();
+      let minutes = new Date().getMinutes();
+      let seconds = new Date().getSeconds();
+      let ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12; // convert 0 to 12
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      time = `${hours}:${minutes}:${seconds} ${ampm}`;
+
+      let date = {
+        name: name.value,
+        date: ndate,
+        time: time,
+        num1: num1.value,
+        num2: num2.value,
+        num3: num3.value,
+        rest: rest.querySelector('span').textContent.split(': ')[1]
+      }
+
+      if (mood === "cr"){
+        if (date.num3 > 1){
+          for(let i = 0; i < num3.value; i++){
+            data.push(date);
+          }
+        } else {
+          data.push(date);
+        }
+      } else {
+        data[t] = date;
+      }
+
+      if (data.length > 0){
+        localStorage.setItem('store', JSON.stringify(data))
+      }
+
+      num3.style.display = "block";
+      btn.innerHTML = '<i class="fas fa-plus"></i> Create Record';
+      mood = "cr";
+
+      show()
+      clear()
+    }
+
+    function show(){
+      let table = "";
+      for(let i = 0; i < data.length; i++){
+        table += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${data[i].date}</td>
+            <td>${data[i].time}</td>
+            <td>${data[i].name}</td>
+            <td>${data[i].num1}</td>
+            <td>${data[i].num2}</td>
+            <td>${data[i].rest}</td>
+            <td>
+              <button class="action-btn edit-btn" onclick="updat(${i})">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn" onclick="delet(${i})">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        `
+      }
+      
+      document.getElementById("tbody").innerHTML = table;
+    }
+    show()
+
+    function clear(){
+      name.value = "";
+      num1.value = "";
+      num2.value = "";
+      num3.value = "";
+      rest.innerHTML = '<i class="fas fa-calculator"></i><span>Remaining: 0</span>';
+      rest.className = 'rest-amount';
+    }
+
+    function delall(){
+      if(confirm('Are you sure you want to delete all records?')) {
+        localStorage.clear();
+        data.splice(0);
+        show()
+      }
+    }
+
+    function delet(i){
+      if(confirm('Are you sure you want to delete this record?')) {
+        data.splice(i, 1);
+        localStorage.store = JSON.stringify(data)
+        show()
+      }
+    }
+
+    function updat(i){
+      name.value = data[i].name;
+      num1.value = data[i].num1;
+      num2.value = data[i].num2;
+      rest.innerHTML = `<i class="fas fa-calculator"></i><span>Remaining: ${data[i].rest}</span>`;
+      btn.innerHTML = '<i class="fas fa-save"></i> Update Record';
+      mood = "up";
+      t = i;
+      num3.style.display = "none";
+      scroll({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+
+    function sersh(){
+      let searchValue = ser.value.toLowerCase();
+      let filteredData = data.filter(item => 
+        item.name.toLowerCase().includes(searchValue)
+      );
+
+      let table = "";
+      filteredData.forEach((item, index) => {
+        table += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.date}</td>
+            <td>${item.time}</td>
+            <td>${item.name}</td>
+            <td>${item.num1}</td>
+            <td>${item.num2}</td>
+            <td>${item.rest}</td>
+            <td>
+              <button class="action-btn edit-btn" onclick="updat(${data.indexOf(item)})">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn" onclick="delet(${data.indexOf(item)})">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        `
+      });
+
+      document.getElementById("tbody").innerHTML = table;
+    }
+  </script>
+</body>
+</html>
